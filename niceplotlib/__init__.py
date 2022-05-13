@@ -8,7 +8,7 @@ plt.style.use("seaborn-colorblind")
 tex_fonts = {
   # Use LaTeX to write all text.
   "text.usetex": True,
-  "font.family": "serif",
+  "font.family": "times",
   # Use system fonts when rendering SVGs.
   "svg.fonttype": "none",
   # Use 10pt font in plots to match 10pt font in document.
@@ -18,12 +18,16 @@ tex_fonts = {
   "legend.fontsize": 8,
   "xtick.labelsize": 8,
   "ytick.labelsize": 8,
+  # Decrease lineweidths to match thinner TeX lettering.
+  "axes.linewidth": 0.1,
+  "lines.linewidth": 0.5,
 }
 plt.rcParams.update(tex_fonts)
 
 
 def set_size(
   width: float,
+  ratio: float = (5**0.5 - 1) / 2,
   fraction: float = 1,
   subplots: tuple[int, int] = (1, 1),
 ) -> tuple[float, float]:
@@ -45,14 +49,10 @@ def set_size(
   # Convert from pt to inches.
   inches_per_pt = 1 / 72.27
 
-  # Golden ratio to set aesthetic figure height.
-  # https://disq.us/p/2940ij3
-  golden_ratio = (5**0.5 - 1) / 2
-
   # Figure width in inches.
   fig_width_in = fig_width_pt * inches_per_pt
 
   # Figure height in inches.
-  fig_height_in = fig_width_in * golden_ratio * (subplots[0] / subplots[1])
+  fig_height_in = fig_width_in * ratio * (subplots[0] / subplots[1])
 
   return fig_width_in, fig_height_in
