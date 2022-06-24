@@ -20,8 +20,8 @@ niceplotlib @ git+https://github.com/eringrant/niceplotlib
 ## Usage
 
 The package sets text and color defaults for `matplotlib` plots to be used in LaTeX documents.
-The package also includes utilies for [sizing plots](#sizing-plots).
-See ["Saving plots"](#saving-plots) for recommendations on saving plots.
+The package also includes utilities for [sizing plots](#sizing-plots).
+See ["Saving plots"](#saving-plots) and ["Including plots"](#including-plots) for guidelines on the steps that follow.
 
 ### Sizing plots
 
@@ -51,12 +51,13 @@ Then compile the document; the output will give something like:
 l.5 \showthe\textwidth
 ```
 
-Use `345` as the width passed to `npl.set_size`.
+`345` is your document's width and is therefore the maximum width for an unscaled plot in your document. 
+Start with `345` as the width passed to `npl.set_size`, and adjust as needed.
 
 #### Using `niceplotlib.set_size` to size `matplotlib` plots
 
-Pass the TeX document width determined 
-[above](#determining-the-target-plot-width-from-tex) to `npl.set_size` as the 
+Pass the target width, which may be the TeX document width determined 
+[above](#determining-the-target-plot-width-from-tex), to `npl.set_size` as the 
 `figsize` when creating a `matplotlib` plot. A minimal example is:
 
 ```python
@@ -80,13 +81,24 @@ Plots should be saved in a vector format to prevent pixelation. Use either PDF:
 fig.savefig('example.pdf', format='pdf', bbox_inches='tight')
 ```
 
-Or SVG:
+Or SVG, though you will have to do some [extra work for conversion](https://ctan.mirror.garr.it/mirrors/ctan/info/svg-inkscape/InkscapePDFLaTeX.pdf):
 
 ```python
 fig.savefig('example.svg', format='svg', bbox_inches='tight')
 ```
 
+### Including plots
 
+Include the figure saved [above](#saving-plots) into the TeX document using the [graphicx](https://ctan.org/pkg/graphicx) package:
+
+```tex
+\begin{figure}
+  \centering
+  \includegraphics{example.pdf}
+\end{figure}
+```
+
+If the figure still isn't quite the right size, resize by tuning the figure width in the instructions under ["Sizing plots"](#sizing-plots).
 
 ## References
 
