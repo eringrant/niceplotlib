@@ -7,7 +7,7 @@ Mods to [`matplotlib`](https://matplotlib.org/) to make it play nicely with LaTe
 
 To install via [pip](https://pip.pypa.io/) on the command line, do:
 
-```bash
+```shell
 python -m pip install git+https://github.com/eringrant/niceplotlib
 ```
 
@@ -19,9 +19,14 @@ niceplotlib @ git+https://github.com/eringrant/niceplotlib
 
 ## Usage
 
-The package sets text and color defaults for `matplotlib` plots to be used in LaTeX documents.
+Start with importing the package in a Python script that produces `matplotlib` plots, which sets some text and color defaults:
+
+```python
+import niceplotlib as npl
+```
+
 The package also includes utilities for [sizing plots](#sizing-plots).
-See ["Saving plots"](#saving-plots) and ["Including plots"](#including-plots) for guidelines on the steps that follow.
+See also ["Saving plots"](#saving-plots) and ["Including plots"](#including-plots) for guidelines on the steps that follow.
 
 ### Sizing plots
 
@@ -31,7 +36,7 @@ First, determine text or column width of your target TeX document.
 Add the statement `\showthe\textwidth` (`\showthe\columnwidth` for two-column format) 
 to your document:
 
-```
+```tex
 \documentclass{report}
 \begin{document}
 
@@ -46,7 +51,7 @@ to your document:
 
 Then compile the document; the output will give something like:
 
-```bash
+```shell
 > 345.0pt.
 l.5 \showthe\textwidth
 ```
@@ -56,8 +61,8 @@ Start with `345` as the width passed to `npl.set_size`, and adjust as needed.
 
 #### Using `niceplotlib.set_size` to size `matplotlib` plots
 
-Pass the target width, which may be the TeX document width determined 
-[above](#determining-the-target-plot-width-from-tex), to `npl.set_size` as the 
+Pass the target width determined 
+[above](#determining-the-target-plot-width-from-tex) to `npl.set_size` as the 
 `figsize` when creating a `matplotlib` plot. A minimal example is:
 
 ```python
@@ -98,8 +103,9 @@ Include the figure saved [above](#saving-plots) into the TeX document using the 
 \end{figure}
 ```
 
-If the figure still isn't quite the right size, resize by tuning the figure width in the instructions under ["Sizing plots"](#sizing-plots).
+Ideally, the figure can be included just so without scaling in TeX!
+If the figure still isn't quite the right size, resize by tuning the target width in the instructions under ["Sizing plots"](#sizing-plots).
 
-## References
+## References & acknowledgements
 
 This package is heavily inspired by Jack Walton's post on "[Plot publication-quality figures with matplotlib and LaTeX](https://jwalton.info/Embed-Publication-Matplotlib-Latex/)."
