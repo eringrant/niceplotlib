@@ -2,6 +2,8 @@
 
 Mods to [`matplotlib`](https://matplotlib.org/) to make it play nicely with LaTeX documents.
 
+*Nota bene*: **This package is deprecated; I use [`tueplots`](https://github.com/pnkraemer/tueplots) now :)**
+
 
 ## Installation
 
